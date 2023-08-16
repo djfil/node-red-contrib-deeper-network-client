@@ -1,0 +1,33 @@
+<script type="text/javascript">
+    RED.nodes.registerType('dpnLiquid',{
+        category: 'DeeperNetwork',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            token: {value:""}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "serial.svg",
+        label: function() {
+            return this.name||"dpnLiquid";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="dpnLiquid">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-token"><i class="fa fa-tag"></i> Token</label>
+        <input type="text" id="node-input-token" placeholder="Token">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="dpnLiquid">
+    <p>A node that interfaces with Deeper Network devices.</p>
+    <p>It can be used to fetch the liquid value from the device.</p>
+    <p>The session object can be found under <b>msg.payload.liquid</b>.</p>
+</script>

@@ -1,0 +1,209 @@
+[
+    {
+        "id": "b376ef47f38e70b6",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6dc60281832d89b3",
+        "type": "tls-config",
+        "name": "DPN",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false,
+        "alpnprotocol": ""
+    },
+    {
+        "id": "a2cb99c85382a6ad",
+        "type": "dpnLogin",
+        "z": "b376ef47f38e70b6",
+        "name": "dpnLogin",
+        "username": "admin",
+        "password": "password",
+        "x": 480,
+        "y": 200,
+        "wires": [
+            [
+                "7a9b121c4e523599",
+                "d8e0c3c284235181"
+            ]
+        ]
+    },
+    {
+        "id": "8c56b42be58e216f",
+        "type": "inject",
+        "z": "b376ef47f38e70b6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "start",
+        "payloadType": "str",
+        "x": 210,
+        "y": 200,
+        "wires": [
+            [
+                "a2cb99c85382a6ad"
+            ]
+        ]
+    },
+    {
+        "id": "7a9b121c4e523599",
+        "type": "debug",
+        "z": "b376ef47f38e70b6",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "d8e0c3c284235181",
+        "type": "function",
+        "z": "b376ef47f38e70b6",
+        "name": "Save Token",
+        "func": "global.set(\"token\", msg.payload.token);",
+        "outputs": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "d11e672732c9a039",
+        "type": "dpnLiquid",
+        "z": "b376ef47f38e70b6",
+        "name": "",
+        "token": "",
+        "x": 480,
+        "y": 380,
+        "wires": [
+            [
+                "7a9b121c4e523599"
+            ]
+        ]
+    },
+    {
+        "id": "0b8a65f1bf814c7a",
+        "type": "inject",
+        "z": "b376ef47f38e70b6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "10",
+        "topic": "",
+        "payload": "start",
+        "payloadType": "str",
+        "x": 190,
+        "y": 380,
+        "wires": [
+            [
+                "9926b4932ae4db90"
+            ]
+        ]
+    },
+    {
+        "id": "9926b4932ae4db90",
+        "type": "function",
+        "z": "b376ef47f38e70b6",
+        "name": "Set Token",
+        "func": "msg.payload = {};\nmsg.payload.token = global.get(\"token\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 300,
+        "wires": [
+            [
+                "d11e672732c9a039"
+            ]
+        ]
+    },
+    {
+        "id": "29e8d91cb06e21d4",
+        "type": "dpnSendLog",
+        "z": "b376ef47f38e70b6",
+        "name": "",
+        "message": "",
+        "x": 470,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "2474d235818946b8",
+        "type": "inject",
+        "z": "b376ef47f38e70b6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload.message",
+                "v": "TESTE",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 170,
+        "y": 560,
+        "wires": [
+            [
+                "7a9b121c4e523599",
+                "bf5673187ef41498"
+            ]
+        ]
+    },
+    {
+        "id": "bf5673187ef41498",
+        "type": "function",
+        "z": "b376ef47f38e70b6",
+        "name": "Set Token",
+        "func": "var message = msg.payload\nmsg.payload = {};\nmsg.payload.token = global.get(\"token\");\nmsg.payload.message = message;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 500,
+        "wires": [
+            [
+                "29e8d91cb06e21d4"
+            ]
+        ]
+    }
+]

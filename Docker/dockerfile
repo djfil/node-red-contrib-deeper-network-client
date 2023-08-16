@@ -1,0 +1,22 @@
+FROM nodered/node-red:latest
+
+WORKDIR /node-red-contrib-deeper-network-client
+
+# Copy package.json to the WORKDIR so npm builds all
+# of your added nodes modules for Node-RED
+COPY package.json ./package.json
+COPY src ./src
+COPY scripts/entrypoint.sh ./entrypoint.sh
+
+RUN npm install --unsafe-perm 
+
+# Reset WORKDIR to Node-RED install directory
+WORKDIR /usr/src/node-red
+
+RUN npm install /node-red-contrib-deeper-network-client/
+
+# Execute
+CMD ["/bin/sh", "-c", 'echo "127.0.0.1 $HOSTNAME" >> /etc/hosts; ./entrypoint.sh']
+
+# Expose port 1880
+EXPOSE 1880

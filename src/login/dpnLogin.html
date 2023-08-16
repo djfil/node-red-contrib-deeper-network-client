@@ -1,0 +1,41 @@
+<script type="text/javascript">
+    RED.nodes.registerType('dpnLogin',{
+        category: 'DeeperNetwork',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            username: {value:""},
+            password: {type:"password"},
+            server: {value:""},
+        },
+        inputs:1,
+        outputs:1,
+        icon: "serial.svg",
+        label: function() {
+            return this.name||"dpnLogin";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="dpnLogin">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-username"><i class="fa fa-tag"></i> Username</label>
+        <input type="text" id="node-input-username" placeholder="Username">
+    </div>
+    <div class="form-row">
+        <label for="node-input-password"><i class="fa fa-tag"></i> Password</label>
+        <input type="password" id="node-input-password" placeholder="Password">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="dpnLogin">
+    <p>A node that interfaces with Deeper Network devices.</p>
+    <p>It can be used to login to a Deeper Network device.</p>
+    <p>Accepts either username && password through input payload or by node configuration.</p>
+    <p>Outputs a session object that can be used by other nodes.</p>
+    <p>The session object can be found under <b>msg.payload.token</b>.</p>
+</script>
